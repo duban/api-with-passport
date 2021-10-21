@@ -1,0 +1,12 @@
+node_modules/
+build
+npm-debug.log
+
+# IntelliJ IDE
+.idea/
+
+# env file
+.env
+
+package-lock.json
+yarn.lock
