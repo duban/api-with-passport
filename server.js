@@ -1,4 +1,5 @@
 const express = require("express");
+const passport = require('passport');
 const dotenv = require('dotenv');
 const cors = require("cors");
 // const HttpException = require('./utils/HttpException.utils');
@@ -13,6 +14,7 @@ dotenv.config();
 // parses incoming requests with JSON payloads
 app.use(express.json());
 // enabling cors for all requests by using cors middleware
+app.use(passport.initialize());
 app.use(cors());
 // Enable pre-flight
 app.options("*", cors());
