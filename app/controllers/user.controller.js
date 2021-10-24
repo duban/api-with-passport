@@ -5,6 +5,11 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 class UserController {
+    findByUsername = (username,password) => {
+        const salt = bcrypt.genSaltSync();
+        const hash = bcrypt.hashSync(password, salt);
+        return hash;
+    }
     hashPassword = (password) => {
         const salt = bcrypt.genSaltSync();
         const hash = bcrypt.hashSync(password, salt);
@@ -70,11 +75,27 @@ class UserController {
         }
     };
     createUser = async (req, res, next) => {
+        const secretKey = process.env.SECRET_JWT || "";
+        const token = jwt.sign({ username: req.body.username }, secretKey, {
+                    expiresIn: '30d'
+                });
         const { body } = req;
+        console.log({
+            username: body.username,
+            password: this.hashPassword(body.password),
+            token: jwt.sign({ username: body.username }, secretKey, {
+                expiresIn: '30d'
+            }),
+            first_name: body.first_name,
+            last_name: body.last_name,
+            email: body.email,
+            role: body.role,
+        })
         try {
             const user = await User.create({
                 username: body.username,
                 password: this.hashPassword(body.password),
+                token: token,
                 first_name: body.first_name,
                 last_name: body.last_name,
                 email: body.email,
@@ -86,6 +107,7 @@ class UserController {
             });
 
         } catch (err) {
+            console.error(err)
             return res.status(500).json({ msg: 'Internal server error' });
         }
     }
