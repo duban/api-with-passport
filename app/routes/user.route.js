@@ -11,10 +11,10 @@ const authLocal = require('../middleware/auth').authenticateLocal;
 // const { authenticateLocal } = require('../middleware/auth');
 
 // router.get('/', auth(), awaitHandlerFactory(userController.getAllUsers));
-router.get('/', authBearer,userController.getAllUsers); // localhost:3000/api/v1/users
-// router.post('/', userController.createUser); // localhost:3000/api/v1/users
+router.get('/v1/users', authBearer,userController.getAllUsers); // localhost:3000/api/v1/users
+router.post('/v1/create', userController.createUser); // localhost:3000/api/v1/users
 
-router.post('/login', authLocal,function(req, res, next) {
+router.post('/v1/login', authLocal,function(req, res, next) {
     res.send({
         token: req.user,
       });
