@@ -19,6 +19,10 @@ const User = sequelize.define('User', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    token: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     first_name: {
         type: Sequelize.STRING,
         allowNull: false
