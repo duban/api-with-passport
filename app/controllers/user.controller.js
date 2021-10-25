@@ -18,6 +18,25 @@ class UserController {
     comparePassword = (pw, hash) => (
         bcrypt.compareSync(pw, hash)
     );
+    deleteUser = async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const user = await User.destroy({ where: {id:id}});
+            if(user){
+                return res.status(200).json({
+                    data: [],
+                    message: "Success delete data."
+                });
+            }
+
+            return res.status(400).json({
+                data: [],
+                message: "Failed to delete data!"
+            });
+        } catch (err) {
+            return res.status(500).json({ msg: 'Internal server error' });
+        }
+    }
     userLogin = async (req, res, next) => {
         const { email, password } = req.body;
         if (email && password) {
