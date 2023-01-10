@@ -30,10 +30,10 @@ app.use('/api', userRouter);
 // app.use(userRouter);
 
 // 404 error
-app.all('*', (req, res, next) => {
-    const err = new HttpException(404, 'Endpoint Not Found');
-    next(err);
-});
+// app.all('*', (req, res, next) => {
+//     const err = new HttpException(404, 'Endpoint Not Found');
+//     next(err);
+// });
 
 // Error middleware
 // app.use(errorMiddleware);
